@@ -1,0 +1,5 @@
+type ResourceVersion {
+  versionId: String!
+  createdAt: String!
+  resourceData: ResourceData!
+}

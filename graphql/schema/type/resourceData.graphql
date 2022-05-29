@@ -1,0 +1,5 @@
+type ResourceData {
+  name: String
+  notes: String
+  description: String
+}

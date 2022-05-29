@@ -1,0 +1,4 @@
+type Query {
+  goodbye: String!
+  getResource(resourceId: String!): Resource!
+}
