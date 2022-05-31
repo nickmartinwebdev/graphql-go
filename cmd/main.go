@@ -2,19 +2,16 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
 	graphql "github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
 	"github.com/nickmartinwebdev/graphql-go/graphql/resolver"
 	"github.com/nickmartinwebdev/graphql-go/graphql/schema"
+	"github.com/rs/cors"
 )
 
-
-
-
-func main () {
+func main() {
 
 	fmt.Println("starting program")
 
@@ -24,7 +21,10 @@ func main () {
 	}
 
 	root, _ := resolver.NewRoot()
-    schema := graphql.MustParseSchema(s, root)
-    http.Handle("/graphql", &relay.Handler{Schema: schema})
-    log.Fatal(http.ListenAndServe(":8080", nil))
+	schema := graphql.MustParseSchema(s, root)
+
+	mux := http.NewServeMux()
+	mux.Handle("/graphql", &relay.Handler{Schema: schema})
+	handler := cors.Default().Handler(mux)
+	http.ListenAndServe(":4000", handler)
 }
